@@ -3,7 +3,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* CSS Custom Properties for colors and fonts */
+/* Define CSS custom properties (variables) on :root */
 :root {
     --color-primary: #d73953;
     --color-black: #090909;
@@ -12,10 +12,12 @@ html {
     --color-dark-grey: #353535;
     --text-color: var(--color-black);
 
+    /* Font families */
     --font-family-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-family-title: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* Use variables for foreground colors */
 body {
     color: var(--text-color);
     font-family: var(--font-family-base);
