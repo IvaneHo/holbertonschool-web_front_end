@@ -208,7 +208,7 @@ ul.row {
     clear: both;
 }
 
-/* === TASK 22: Dark theme for sections === */
+/* TASK 22 */
 [data-section-theme="dark"] {
     --text-color: var(--color-white);
     --section-title-color: var(--color-white);
