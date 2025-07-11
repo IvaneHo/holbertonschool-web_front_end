@@ -45,7 +45,7 @@
     --nav-item-letter-spacing: 0.4rem;
     --nav-item-display: inline-block;
     --nav-item-margin: 0 0 3rem 0;
-    --nav-item-link-hover: var(--color-primary);
+    --nav-item-link-hover: var(--color-white); /* mis à jour pour la tâche 29 */
 
     --section-tagline-margin: 0;
 
@@ -59,6 +59,18 @@
     --button-hover-color: var(--color-white);
     --button-hover-text-decoration: none;
     --button-hover-background: var(--color-primary);
+
+    /* === TASK 28: Header variables === */
+    --header-padding: 4rem 0 0;
+    --header-logo-position: relative;
+    --header-logo-link-display: inline-block;
+    --header-logo-link-position: absolute;
+    --header-logo-link-top: -1rem;
+    --header-logo-link-left: 0;
+
+    /* === TASK 32: Transition variables === */
+    --transition-duration: .3s;
+    --transition-cubic-bezier: cubic-bezier(0.17, 0.67, 0, 1.01);
 }
 
 *,
@@ -160,10 +172,8 @@ a[href]:active {
     color: var(--button-hover-color);
     text-decoration: var(--button-hover-text-decoration);
     background: var(--button-hover-background);
-}
-
-.footer {
-    padding: var(--footer-padding);
+    transition-property: color, background-color;
+    transition-duration: var(--transition-duration);
 }
 
 /* === NAVBAR === */
@@ -187,9 +197,28 @@ nav .nav-item {
 nav .nav-link {
     display: block;
     padding: 0.5rem 1rem;
+    position: relative;
+    z-index: 2;
 }
 nav .nav-link:hover {
     color: var(--nav-item-link-hover);
+}
+
+/* === TASK 29: Nav pseudo-elements and hover === */
+nav .nav-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--color-white);
+    width: 0;
+    height: 2rem;
+    z-index: 1;
+    transition: var(--transition-duration) var(--transition-cubic-bezier);
+}
+nav .nav-item:hover .nav-link::before {
+    background-color: var(--color-primary);
+    width: 100%;
 }
 
 /* === Grid === */
@@ -269,92 +298,38 @@ ul.row {
 }
 
 /* === TASK 26: Card testimonial styles === */
-
-/* 1. Centrer le texte de la carte de témoignage */
 .card-testimonial {
     text-align: center;
 }
-
-/* 2. Avatar rond et taille */
 .card-testimonial .card-avatar {
     border-radius: 50%;
     width: 10rem;
     height: 10rem;
 }
-
-/* 3. Style du cite dans card-quote dans card-testimonial */
 .card-testimonial .card-quote cite {
     display: block;
     padding-top: 1rem;
     color: var(--color-primary);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*TASK 27: Section hero styles 
-
-/* 1. Hero section with custom background size */
+/* === TASK 27: Section hero styles === */
 .section-hero {
     background-size: 90rem auto;
 }
-
-/* 2. Titre dans hero : 5rem de marge en bas */
 .section-hero .section-title {
     margin-bottom: 5rem;
 }
-
-/* 3. Intérieur du hero : padding top/right/bottom/left */
 .section-hero .section-inner {
     padding: 10rem 40rem 2rem 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-:root {
-    /* ... (toutes tes autres variables déjà présentes) ... */
-    --header-padding: 4rem 0 0;
-    --header-logo-position: relative;
-    --header-logo-link-display: inline-block;
-    --header-logo-link-position: absolute;
-    --header-logo-link-top: -1rem;
-    --header-logo-link-left: 0;
-}
-
 /* === TASK 28: Header and menu navigation bar === */
-
 .header {
     padding: var(--header-padding);
 }
-
 .header-logo {
     position: var(--header-logo-position);
 }
-
 .header-logo a {
     display: var(--header-logo-link-display);
     position: var(--header-logo-link-position);
@@ -362,70 +337,36 @@ ul.row {
     left: var(--header-logo-link-left);
 }
 
-
-:root {
-    /* ...autres variables précédentes... */
-    --nav-item-link-hover: var(--color-white); /* Changement demandé */
-}
-
-/* === TASK 29: Nav pseudo-elements and hover === */
-
-/* 1. nav-link::before styles (inside nav) */
-nav .nav-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--color-white);
-    width: 0;
-    height: 2rem; /* 20% du root = 0.2 * 10rem (si 10rem = 100%) => 2rem. Si 20% du root, alors root = 10px => 2rem pour 20%. */
-    /* Mais dans le projet Holberton, souvent 1rem = 10px donc 20% = 2rem. Adapter à la maquette au besoin. */
-    z-index: 1;
-    /* Astuce pour voir l'effet : il faut que nav-link soit position:relative */
-}
-
-nav .nav-link {
-    position: relative;
-    z-index: 2;
-}
-
-/* 2. nav .nav-item:hover .nav-link::before styles */
-nav .nav-item:hover .nav-link::before {
-    background-color: var(--color-primary);
-    width: 100%;
-}
-
 /* === TASK 30: Fix the works section === */
-
-/* 1. card-outer within card-work : relative + overflow hidden */
 .card-work .card-outer {
     position: relative;
     overflow: hidden;
+    transition: var(--transition-duration) var(--transition-cubic-bezier);
 }
-
-/* 2. image inside card-image inside card-work */
+.card-work:hover .card-outer {
+    transform: scale(0.95);
+}
 .card-work .card-image img {
     height: 30rem;
     width: 100%;
     object-fit: cover;
     vertical-align: bottom;
+    transition: var(--transition-duration) var(--transition-cubic-bezier);
 }
-
-/* 3. card-inner inside card-work */
+.card-work:hover .card-image img {
+    transform: scale(1.2);
+}
 .card-work .card-inner {
     position: absolute;
     top: -0.1rem;
     left: -0.1rem;
     right: -0.1rem;
     z-index: 1;
+    transition: var(--transition-duration) var(--transition-cubic-bezier);
 }
-
-/* 4. card-inner when card-work is hovered */
 .card-work:hover .card-inner {
     background-color: rgba(0, 0, 0, 0.7);
 }
-
-/* 5. card-title inside card-work */
 .card-work .card-title {
     text-align: center;
     margin: 0;
@@ -433,8 +374,6 @@ nav .nav-item:hover .nav-link::before {
     height: 100%;
     position: relative;
 }
-
-/* 6. link inside card-title and card-work */
 .card-work .card-title a {
     display: block;
     text-decoration: none;
@@ -442,27 +381,19 @@ nav .nav-item:hover .nav-link::before {
     position: relative;
     z-index: 2;
 }
-
-/* 7. after pseudo-element of the link */
 .card-work .card-title a::after {
     content: "";
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
 }
-
-/* 8. card-title when card-work is hovered */
 .card-work:hover .card-title {
     opacity: 1;
 }
 
 /* === TASK 31: Add quotes decoration on testimonials === */
-
-/* 1. .card-quote dans .card-testimonial : position relative */
 .card-testimonial .card-quote {
     position: relative;
 }
-
-/* 2. ::before sur .card-quote dans .card-testimonial */
 .card-testimonial .card-quote::before {
     content: "\201C";
     position: absolute;
@@ -471,44 +402,4 @@ nav .nav-item:hover .nav-link::before {
     color: #efeded;
     font-size: 10rem;
     z-index: -1;
-}
-
-
-:root {
-    --transition-duration: .3s;
-    --transition-cubic-bezier: cubic-bezier(0.17, 0.67, 0, 1.01);
-}
-
-/* === TASK 32: Incorporating transitions and transforms === */
-
-/* 1. Card image scale up on hover */
-.card-work:hover .card-image img {
-    transform: scale(1.2);
-    transition: var(--transition-duration) var(--transition-cubic-bezier);
-}
-
-/* 2. Card outer scale down on hover */
-.card-work:hover .card-outer {
-    transform: scale(0.95);
-}
-
-/* 3. Transition on nav link underline (bar) */
-nav .nav-link::before {
-    transition: var(--transition-duration) var(--transition-cubic-bezier);
-}
-
-/* 4. Button background color transition on hover */
-.button:hover {
-    transition-property: color, background-color;
-    transition-duration: var(--transition-duration);
-}
-
-/* 5. Transition on card-inner overlay */
-.card-work .card-inner {
-    transition: var(--transition-duration) var(--transition-cubic-bezier);
-}
-
-/* 6. Smoother transition for card-image img when hovered (optional, bonus for transition out) */
-.card-work .card-image img {
-    transition: var(--transition-duration) var(--transition-cubic-bezier);
 }
